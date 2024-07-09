@@ -7,9 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface PokemonMapper {
-    @Select("SELECT * FROM pokemontables WHERE name LIKE CONCAT(#{startsWith}, '%')")
+    @Select("SELECT * FROM pokemon WHERE name LIKE CONCAT(#{startsWith}, '%')")
     List<Name> findByNameStartingWith(String startsWith);
 
-    @Select("SELECT * FROM pokemontables")
+    @Select("SELECT * FROM pokemon")
     List<Name> findAll();
 }
