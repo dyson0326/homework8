@@ -1,6 +1,7 @@
 package com.homework8.pokemon.tables;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,21 +10,27 @@ import java.util.Objects;
 
 @RestController
 public class PokemonController {
-    private PokemonMapper pokemonMapper;
+    private PokemonService pokemonService;
 
-    public PokemonController(PokemonMapper pokemonMapper) {
-        this.pokemonMapper = pokemonMapper;
+    public PokemonController(PokemonService pokemonService) {
+        this.pokemonService = pokemonService;
     }
 
     @GetMapping("/names")
     public List<Name> getName(@RequestParam(value = "startsWith", required = false) String startsWith) {
         List<Name> names;
         if (Objects.nonNull(startsWith)) {
-            names = pokemonMapper.findByNameStartingWith(startsWith);
+            names = pokemonService.getName(startsWith);
         } else {
-            names = pokemonMapper.findAll();
+            names = pokemonService.allName();
         }
         return names;
+    }
+
+    @GetMapping("/names/{id}")
+    public Name getName(@PathVariable("id") Integer id) {
+        Name name = pokemonService.findNameById(id);
+        return name;
     }
 
 }
