@@ -23,11 +23,7 @@ public class PokemonService {
 
     public Name findNameById(int id) {
         Optional<Name> name = pokemonMapper.findById(id);
-        if (name.isPresent()) {
-            return name.get();
-        } else {
-            throw new PokemonNotFoundException("pokemon not found");
-        }
+        return name.orElseThrow(() -> new PokemonNotFoundException("pokemon not found"));
     }
 
 }
