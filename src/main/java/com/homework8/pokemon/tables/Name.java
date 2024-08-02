@@ -28,4 +28,5 @@ public class Name {
     public String getType2() {
         return type2;
     }
+
 }
